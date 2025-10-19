@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/futuristic_header.dart';
 import '../components/talk_tabs.dart';
 import '../components/talk_card_grid.dart';
+import 'create_talk_screen.dart';
 
 // ...imports 省略
 
@@ -28,18 +29,28 @@ class HomeScreen extends StatelessWidget {
           // 下側の安全領域はナビの分だけ無効化（Gridエリアを広げる）
           bottom: false,
           child: Column(
-            children: const [
-              SizedBox(height: 2), // ← 12 → 6 に圧縮
-              FuturisticHeader(),
-              SizedBox(height: 2), // ← 20 → 8 に圧縮
-              TalkTabs(),
-              SizedBox(height: 6), // ← 16 → 8 に圧縮
+            children: [
+              const SizedBox(height: 2), // ← 12 → 6 に圧縮
+              const FuturisticHeader(),
+              const SizedBox(height: 2), // ← 20 → 8 に圧縮
+              const TalkTabs(),
+              const SizedBox(height: 6), // ← 16 → 8 に圧縮
               Expanded(child: TalkCardGrid()), // ← Gridに最大の高さを渡す
             ],
           ),
         ),
       ),
       bottomNavigationBar: const _BottomNav(),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0xFF4F5BD5),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const CreateTalkScreen()),
+          );
+        },
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
     );
   }
 }
