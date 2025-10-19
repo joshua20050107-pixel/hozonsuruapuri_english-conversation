@@ -10,20 +10,24 @@ class SpeechBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
-        maxWidth: 240, // 横幅を制限
+        maxWidth: 230, // 横幅を制限
       ),
       child: CustomPaint(
         painter: SpeechBubblePainter(),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-          child: Text(
-            text,
-            style: GoogleFonts.poppins(
-              fontSize: 15,
-              color: Colors.black87,
-              fontWeight: FontWeight.w600,
-              height: 1.3,
-              letterSpacing: 0.3,
+          padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 12),
+          child: FittedBox(
+            fit: BoxFit.scaleDown, // 🔥 テキストがはみ出す時に自動で縮小
+            alignment: Alignment.centerLeft, // 左寄せ維持
+            child: Text(
+              text,
+              style: GoogleFonts.poppins(
+                fontSize: 15,
+                color: Colors.black87,
+                fontWeight: FontWeight.w600,
+                height: 1.65,
+                letterSpacing: 0.3,
+              ),
             ),
           ),
         ),

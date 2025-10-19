@@ -1,19 +1,80 @@
 import 'package:flutter/material.dart';
+import '../models/talk_model.dart';
+import '../theme/talkin_colors.dart';
+
+Color getColorForIndex(int index) {
+  final row = index ~/ 2;
+  final colorIndex = (row + index) % TalkinColors.palette.length;
+  return TalkinColors.palette[colorIndex];
+}
 
 class TalkCardGrid extends StatelessWidget {
   const TalkCardGrid({super.key});
 
-  final List<Map<String, String>> talks = const [
-    {"name": "Haru", "desc": "Let's cook in English 🍳", "color": "#9A7BFF"},
-    {"name": "Mei", "desc": "Random chat ☕", "color": "#6FFFE9"},
-    {"name": "Kai", "desc": "Weekend plans 🌇", "color": "#FFD84D"},
-    {"name": "Lina", "desc": "Talk about anime 🎬", "color": "#A977FF"},
-    {"name": "Ren", "desc": "Study talk 📚", "color": "#88B4FF"},
-    {"name": "Yui", "desc": "Daily routine 🌞", "color": "#B688F9"},
-    {"name": "Taro", "desc": "Future dreams 🚀", "color": "#7CC6FE"},
-    {"name": "Nana", "desc": "Music talk 🎧", "color": "#6FFFE9"},
-    {"name": "Sho", "desc": "Foodie chat 🍜", "color": "#FAD65E"},
-    {"name": "Miki", "desc": "Let's chill 😌", "color": "#C6A8FF"},
+  final List<Talk> talks = const [
+    Talk(
+      id: '1',
+      hostName: 'はる',
+      hostLevel: '中級',
+      targetLevel: '初級',
+      description: "英語で料理しよう 🍳",
+    ),
+    Talk(
+      id: '2',
+      hostName: 'メイ',
+      hostLevel: '初級',
+      targetLevel: '初級',
+      description: "ランダムトーク ☕",
+    ),
+    Talk(
+      id: '3',
+      hostName: '海斗',
+      hostLevel: '上級',
+      targetLevel: '中級',
+      description: "週末の予定 🌇",
+    ),
+    Talk(
+      id: '4',
+      hostName: 'リナ',
+      hostLevel: '中級',
+      targetLevel: '中級',
+      description: "アニメの話 🎬",
+    ),
+    Talk(
+      id: '5',
+      hostName: '蓮',
+      hostLevel: '初級',
+      targetLevel: '初級',
+      description: "勉強トーク 📚",
+    ),
+    Talk(
+      id: '6',
+      hostName: '結衣',
+      hostLevel: '中級',
+      targetLevel: '上級',
+      description: "日常会話 🌞",
+    ),
+    Talk(
+      id: '7',
+      hostName: '太郎',
+      hostLevel: '上級',
+      targetLevel: '中級',
+      description: "未来の夢 🚀",
+    ),
+    Talk(
+      id: '8',
+      hostName: 'ナナ',
+      hostLevel: '初級',
+      targetLevel: '中級',
+      description: "音楽トーク 🎧",
+    ),
+    Talk(
+      id: '9',
+      hostName: '翔',
+      hostLevel: '中級',
+      targetLevel: '上級',
+      description: "食べ物トーク 🍜",
+    ),
   ];
 
   @override
@@ -29,9 +90,11 @@ class TalkCardGrid extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         final talk = talks[index];
+        final color = getColorForIndex(index);
+
         return Container(
           decoration: BoxDecoration(
-            color: Color(int.parse("0xFF${talk['color']!.substring(1)}")),
+            color: color,
             borderRadius: BorderRadius.circular(24),
             boxShadow: [
               BoxShadow(
@@ -44,30 +107,38 @@ class TalkCardGrid extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // 🧑 ランダムなDiceBearアバター（名前ベース）
               CircleAvatar(
-                backgroundColor: Colors.white,
                 radius: 26,
-                child: Text(
-                  talk['name']![0],
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
+                backgroundColor: Colors.white,
+                backgroundImage: NetworkImage(
+                  'https://api.dicebear.com/9.x/bottts/svg?seed=${talk.hostName}',
                 ),
               ),
+
               const SizedBox(height: 8),
               Text(
-                talk['name']!,
+                talk.hostName,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
               const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text(
+                  talk.description,
+                  style: const TextStyle(fontSize: 12),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              const SizedBox(height: 6),
               Text(
-                talk['desc']!,
-                style: const TextStyle(fontSize: 12),
-                textAlign: TextAlign.center,
+                '${talk.hostLevel} → ${talk.targetLevel}',
+                style: const TextStyle(fontSize: 11, color: Colors.black87),
               ),
               const SizedBox(height: 10),
               Container(
@@ -80,7 +151,7 @@ class TalkCardGrid extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Text(
-                  "Join",
+                  "参加する",
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
                 ),
               ),

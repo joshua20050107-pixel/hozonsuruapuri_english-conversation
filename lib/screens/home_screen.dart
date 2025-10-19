@@ -17,9 +17,13 @@ class HomeScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF5C45E0), Color(0xFFB592FF)],
+            colors: [
+              Color(0xFF962FBF), // 紫
+              Color(0xFF4F5BD5), // 青紫
+            ],
           ),
         ),
+
         child: SafeArea(
           // 下側の安全領域はナビの分だけ無効化（Gridエリアを広げる）
           bottom: false,

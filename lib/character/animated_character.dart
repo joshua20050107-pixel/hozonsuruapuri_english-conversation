@@ -30,7 +30,7 @@ class _AnimatedCharacterState extends State<AnimatedCharacter>
 
     _scaleAnimation = Tween(
       begin: 1.0,
-      end: 1.06,
+      end: 1.07,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     // 🙂 表情切り替え（7秒ごと）
