@@ -6,6 +6,7 @@ class Talk {
   final String level; // "Beginner", "Intermediate", "Advanced", "Anyone"
   final String type; // "free" or "short"
   final DateTime createdAt;
+  final String? creatorImageUrl;
 
   Talk({
     required this.id,
@@ -15,5 +16,6 @@ class Talk {
     required this.level,
     required this.type,
     required this.createdAt,
+    this.creatorImageUrl,
   });
 }

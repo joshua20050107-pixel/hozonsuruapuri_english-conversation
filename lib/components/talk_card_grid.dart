@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../models/talk_model.dart';
 import '../theme/talkin_colors.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-Color getColorForIndex(int index) {
+LinearGradient getGradientForIndex(int index) {
   final row = index ~/ 2;
-  final colorIndex = (row + index) % TalkinColors.palette.length;
-  return TalkinColors.palette[colorIndex];
+  final gradientIndex = (row + index) % TalkinColors.gradients.length;
+  return TalkinColors.gradients[gradientIndex];
 }
 
 // 🔹 英語レベルを日本語で表示
@@ -33,9 +34,10 @@ class TalkCardGrid extends StatelessWidget {
       creatorName: 'はる',
       creatorLevel: 'Intermediate',
       level: 'Beginner',
-      message: "これからはいいことがあるように願いますよ ",
+      message: "これからはいいことがあるように願いますよと願うまで ",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
     ),
     Talk(
       id: '2',
@@ -45,6 +47,7 @@ class TalkCardGrid extends StatelessWidget {
       message: "ランダムトーク ",
       type: 'short',
       createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
     ),
     Talk(
       id: '3',
@@ -54,6 +57,7 @@ class TalkCardGrid extends StatelessWidget {
       message: "",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
     ),
     Talk(
       id: '4',
@@ -63,6 +67,87 @@ class TalkCardGrid extends StatelessWidget {
       message: "アニメの話 ",
       type: 'short',
       createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
+    ),
+    Talk(
+      id: '5',
+      creatorName: 'リナ',
+      creatorLevel: 'Intermediate',
+      level: 'Anyone',
+      message: "アニメの話 ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
+    ),
+    Talk(
+      id: '6',
+      creatorName: 'リナ',
+      creatorLevel: 'Intermediate',
+      level: 'Anyone',
+      message: "アニメの話 ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
+    ),
+    Talk(
+      id: '7',
+      creatorName: 'リナ',
+      creatorLevel: 'Intermediate',
+      level: 'Anyone',
+      message: "アニメの話 ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
+    ),
+    Talk(
+      id: '8',
+      creatorName: 'リナ',
+      creatorLevel: 'Intermediate',
+      level: 'Anyone',
+      message: "アニメの話 ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
+    ),
+    Talk(
+      id: '9',
+      creatorName: 'リナ',
+      creatorLevel: 'Intermediate',
+      level: 'Anyone',
+      message: "アニメの話 ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
+    ),
+    Talk(
+      id: '10',
+      creatorName: 'リナ',
+      creatorLevel: 'Intermediate',
+      level: 'Anyone',
+      message: "アニメの話 ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
+    ),
+    Talk(
+      id: '11',
+      creatorName: 'リナ',
+      creatorLevel: 'Intermediate',
+      level: 'Anyone',
+      message: "アニメの話 ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
+    ),
+    Talk(
+      id: '12',
+      creatorName: 'リナ',
+      creatorLevel: 'Intermediate',
+      level: 'Anyone',
+      message: "アニメの話 ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: 'https://example.com/profile/haru.png',
     ),
   ];
 
@@ -74,16 +159,16 @@ class TalkCardGrid extends StatelessWidget {
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 16,
-        mainAxisSpacing: 18, // ← 少し間隔広げた
-        childAspectRatio: 0.75, // ← 0.93 → 0.85 に変更してカードを縦にゆったり
+        mainAxisSpacing: 18,
+        childAspectRatio: 0.74,
       ),
       itemBuilder: (context, index) {
         final talk = talks[index];
-        final color = getColorForIndex(index);
+        final gradient = getGradientForIndex(index); // ← ここで呼ぶ
 
         return Container(
           decoration: BoxDecoration(
-            color: color,
+            gradient: gradient, // ← グラデーション適用
             borderRadius: BorderRadius.circular(22),
             boxShadow: [
               BoxShadow(
@@ -104,7 +189,9 @@ class TalkCardGrid extends StatelessWidget {
                   radius: 26,
                   backgroundColor: Colors.white,
                   backgroundImage: NetworkImage(
-                    'https://api.dicebear.com/9.x/bottts/png?seed=${talk.creatorName}',
+                    talk.creatorImageUrl?.isNotEmpty == true
+                        ? talk.creatorImageUrl!
+                        : 'https://api.dicebear.com/9.x/identicon/png?seed=${talk.creatorName}',
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -115,18 +202,22 @@ class TalkCardGrid extends StatelessWidget {
                   children: [
                     Text(
                       talk.creatorName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
+                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w600,
                         fontSize: 15,
+                        color: Colors.black87,
+                        letterSpacing: 0.2,
                       ),
                     ),
                     const SizedBox(width: 4),
                     Text(
                       '[${displayLevel(talk.creatorLevel)}]',
-                      style: const TextStyle(
+                      style: GoogleFonts.mPlus1p(
                         fontSize: 11,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xFF505050).withOpacity(0.68),
+                        letterSpacing: 0.15,
+                        height: 1.1,
                       ),
                     ),
                   ],
@@ -135,8 +226,6 @@ class TalkCardGrid extends StatelessWidget {
                 const SizedBox(height: 6),
 
                 // 💬 メッセージ
-                // 💬 メッセージ（空なら非表示）
-                // 💬 メッセージ（空かどうかで間隔を調整）
                 if (talk.message.trim().isNotEmpty)
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -144,16 +233,14 @@ class TalkCardGrid extends StatelessWidget {
                       vertical: 4,
                     ),
                     child: ConstrainedBox(
-                      constraints: const BoxConstraints(
-                        maxWidth: 140,
-                      ), // ← 横幅制限で崩れ防止
+                      constraints: const BoxConstraints(maxWidth: 140),
                       child: Text(
                         talk.message,
-                        style: const TextStyle(
-                          fontSize: 13,
+                        style: GoogleFonts.mPlusRounded1c(
+                          fontSize: 12,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF212121),
-                          height: 1.3,
+                          color: const Color(0xFF212121),
+                          height: 1.45,
                         ),
                         textAlign: TextAlign.center,
                         maxLines: 2,
@@ -162,22 +249,21 @@ class TalkCardGrid extends StatelessWidget {
                     ),
                   )
                 else
-                  const SizedBox(height: 5), // ← メッセージがない時は間隔を広げる
-                // 通常の下余白
+                  const SizedBox(height: 5),
+
                 const SizedBox(height: 6),
 
                 // 🎯 募集対象レベル
-                // 🎯 募集対象レベル
-                // 🎯 募集対象レベル（グラデーションタグver）
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       '募集：',
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.black87,
-                        fontWeight: FontWeight.w500,
+                      style: GoogleFonts.mPlus1p(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xFF3F3F3F).withOpacity(0.86),
+                        letterSpacing: 0.3,
                       ),
                     ),
                     const SizedBox(width: 4),
@@ -188,10 +274,7 @@ class TalkCardGrid extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFFFFF176),
-                            Color(0xFFFFD54F),
-                          ], // 柔らかい黄グラデ
+                          colors: [Color(0xFFFFF176), Color(0xFFFFD54F)],
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -216,7 +299,7 @@ class TalkCardGrid extends StatelessWidget {
                   ],
                 ),
 
-                SizedBox(height: talk.message.trim().isEmpty ? 23 : 11),
+                SizedBox(height: talk.message.trim().isEmpty ? 20 : 11),
 
                 // 🚀 参加ボタン
                 Container(
