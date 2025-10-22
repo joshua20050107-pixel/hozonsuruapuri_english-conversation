@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../components/futuristic_header.dart';
 import '../components/talk_tabs.dart';
 import '../components/talk_card_grid.dart';
+import '../theme/talkin_colors.dart';
 import 'create_talk_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,12 +11,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // ✨ FABを中央に浮かせる
+      // ⚡ FAB配置（中央固定）
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 90.0), // ← 上に少し浮かせる
+        padding: const EdgeInsets.only(bottom: 105.0),
         child: FloatingActionButton(
-          backgroundColor: const Color(0xFF4F5BD5),
+          backgroundColor: TalkinColors.accent, // 💜 紫を主役に
           onPressed: () {
             Navigator.push(
               context,
@@ -26,42 +27,17 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
 
+      // 🧱 メイン構造
       body: Stack(
         children: [
-          // 🎨 背景グラデーション（Soft Professional）
+          // 🎨 背景をTalkinColorsから取得（グラデーションなし）
           Container(
             decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFFEBEDF9), // 上：白寄りラベンダーグレー
-                  Color(0xFFD9E1F5), // 中：青みグレー
-                  Color(0xFFC8D8F0), // 下：淡いブルー
-                ],
-                stops: [0.0, 0.5, 1.0],
-              ),
+              gradient: TalkinColors.titaniumGradient,
             ),
           ),
 
-          // ☀️ 光レイヤー（右上からの柔らかい反射）
-          Positioned(
-            top: -100,
-            right: -80,
-            child: Container(
-              width: 280,
-              height: 280,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [Colors.white.withOpacity(0.45), Colors.transparent],
-                  radius: 0.9,
-                ),
-              ),
-            ),
-          ),
-
-          // 🧩 コンテンツ
+          // 🧩 コンテンツ本体
           SafeArea(
             bottom: false,
             child: Column(
@@ -85,7 +61,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 /// ─────────────────────────────
-/// ボトムナビ
+/// ボトムナビ（色・影・統一感を調整）
 /// ─────────────────────────────
 class _BottomNav extends StatelessWidget {
   const _BottomNav();
@@ -93,21 +69,21 @@ class _BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xFF4C3FD9), // 左：紫寄りの深色
-            Color(0xFF8F79FF), // 右：柔らかいラベンダー
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+      decoration: BoxDecoration(
+        color: TalkinColors.card, // 🩶 カードと統一した白系
+        boxShadow: [
+          BoxShadow(
+            color: TalkinColors.shadow,
+            blurRadius: 8,
+            offset: const Offset(0, -2),
+          ),
+        ],
       ),
       child: BottomNavigationBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        selectedItemColor: Color(0xFFFFD84D), // ゴールド
-        unselectedItemColor: Colors.white70,
+        selectedItemColor: TalkinColors.accent, // 💜 テーマ紫
+        unselectedItemColor: const Color(0xFFB5B5B5), // グレー
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Growth"),

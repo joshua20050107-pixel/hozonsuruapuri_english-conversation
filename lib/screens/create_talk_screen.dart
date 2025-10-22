@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
-import '../providers/talk_provider.dart';
+import '../providers/talk_provider.dart' as talk;
 import '../providers/user_provider.dart';
 import '../models/talk_model.dart';
 
@@ -31,7 +31,7 @@ class _CreateTalkScreenState extends ConsumerState<CreateTalkScreen> {
       createdAt: DateTime.now(),
     );
 
-    addTalk(ref, newTalk);
+    talk.addTalk(ref, newTalk);
     Navigator.pop(context);
   }
 
