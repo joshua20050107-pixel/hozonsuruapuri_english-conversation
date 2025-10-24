@@ -30,13 +30,13 @@ class TalkCardGrid extends StatelessWidget {
   final List<Talk> talks = [
     Talk(
       id: '1',
-      creatorName: 'はるとと言われたい',
+      creatorName: 'リョウ',
       creatorLevel: 'Intermediate',
       level: 'Beginner',
       message: "これからはいいことがあるように願いますよと願うまで ",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
-      creatorImageUrl: 'https://example.com/profile/haru.png',
+      creatorImageUrl: '',
     ),
     Talk(
       id: '2',
@@ -46,7 +46,7 @@ class TalkCardGrid extends StatelessWidget {
       message: "ランダムトーク ",
       type: 'short',
       createdAt: DateTime(2025, 1, 1),
-      creatorImageUrl: 'https://example.com/profile/haru.png',
+      creatorImageUrl: '',
     ),
     Talk(
       id: '3',
@@ -56,7 +56,7 @@ class TalkCardGrid extends StatelessWidget {
       message: "",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
-      creatorImageUrl: 'https://example.com/profile/haru.png',
+      creatorImageUrl: '',
     ),
     Talk(
       id: '4',
@@ -66,7 +66,7 @@ class TalkCardGrid extends StatelessWidget {
       message: "アニメの話 ",
       type: 'short',
       createdAt: DateTime(2025, 1, 1),
-      creatorImageUrl: 'https://example.com/profile/haru.png',
+      creatorImageUrl: '',
     ),
     Talk(
       id: '5',
@@ -76,7 +76,7 @@ class TalkCardGrid extends StatelessWidget {
       message: "これからはいいことがあるように願いますよと願うまで ",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
-      creatorImageUrl: 'https://example.com/profile/haru.png',
+      creatorImageUrl: '',
     ),
     Talk(
       id: '6',
@@ -86,7 +86,7 @@ class TalkCardGrid extends StatelessWidget {
       message: "これからはいいことがあるように願いますよと願うまで ",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
-      creatorImageUrl: 'https://example.com/profile/haru.png',
+      creatorImageUrl: "",
     ),
     Talk(
       id: '7',
@@ -96,7 +96,7 @@ class TalkCardGrid extends StatelessWidget {
       message: "これからはいいことがあるように願いますよと願うまで ",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
-      creatorImageUrl: 'https://example.com/profile/haru.png',
+      creatorImageUrl: '',
     ),
     Talk(
       id: '8',
@@ -106,23 +106,24 @@ class TalkCardGrid extends StatelessWidget {
       message: "これからはいいことがあるように願いますよと願うまで ",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
-      creatorImageUrl: 'https://example.com/profile/haru.png',
+      creatorImageUrl: '',
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
       itemCount: talks.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 16,
+        crossAxisSpacing: 14,
         mainAxisSpacing: 18,
-        childAspectRatio: 0.74,
+        childAspectRatio: 0.77,
       ),
       itemBuilder: (context, index) {
         final talk = talks[index];
+        debugPrint('Avatar exists: ${talk.creatorImageUrl}');
 
         return InkWell(
           borderRadius: BorderRadius.circular(14),
@@ -133,128 +134,76 @@ class TalkCardGrid extends StatelessWidget {
             duration: const Duration(milliseconds: 180),
             curve: Curves.easeOut,
             decoration: BoxDecoration(
-              color: Colors.white,
+              gradient: getGradientForIndex(index), // ← 背景グラデーションを追加
               borderRadius: BorderRadius.circular(14),
-              border: Border.all(color: const Color(0xFFE0E3E7), width: 1),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.08),
+                  offset: const Offset(0, 3),
+                  blurRadius: 6,
+                ),
+              ],
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // ─────────── 上部：アバター＋名前＋レベル ───────────
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        radius: 22,
-                        backgroundColor: Colors.black,
-                        backgroundImage: NetworkImage(
-                          talk.creatorImageUrl?.isNotEmpty == true
-                              ? talk.creatorImageUrl!
-                              : 'https://api.dicebear.com/9.x/identicon/png?seed=${talk.creatorName}',
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Row(
-                          children: [
-                            Flexible(
-                              child: Text(
-                                talk.creatorName,
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.inter(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 15,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                  // ─────────── 名前 ───────────
+                  CircleAvatar(
+                    radius: 26,
+                    backgroundImage:
+                        talk.creatorImageUrl != null &&
+                            talk.creatorImageUrl!.isNotEmpty
+                        ? NetworkImage(talk.creatorImageUrl!)
+                        : const AssetImage('assets/images/default_avatar.png')
+                              as ImageProvider,
                   ),
-
-                  // ─────────── 中央：メッセージ ───────────
-                  if (talk.message.trim().isNotEmpty) ...[
-                    const SizedBox(height: 10),
-                    Text(
-                      talk.message,
-                      style: GoogleFonts.inter(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF444444),
-                        height: 1.45,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                  const SizedBox(height: 12),
+                  Text(
+                    talk.creatorName,
+                    style: GoogleFonts.inter(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: Colors.white,
                     ),
-                  ],
-
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    talk.message.isNotEmpty
+                        ? talk.message
+                        : (talk.type == 'short'
+                              ? "Talk about anime 🎬"
+                              : "Daily chat ☕"),
+                    style: GoogleFonts.inter(
+                      fontSize: 13,
+                      color: Colors.white.withOpacity(0.9),
+                    ),
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   const Spacer(),
 
-                  // ─────────── 区切り線 ───────────
-                  const Divider(
-                    color: Color(0xFFE5E7EB),
-                    thickness: 0.8,
-                    height: 18,
-                  ),
-
-                  // ─────────── 下部：募集レベル＋Join ───────────
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Level:',
-                            style: GoogleFonts.inter(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          const SizedBox(width: 5),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 6,
-                              vertical: 3,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF3F4F6),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              displayLevel(talk.level),
-                              style: GoogleFonts.inter(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                              ),
-                            ),
-                          ),
-                        ],
+                  // ─────────── Joinボタン ───────────
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 22,
+                      vertical: 10,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Text(
+                      "Join",
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black87,
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: const Color(0xFF6366F1),
-                        ),
-                        child: Text(
-                          "Join",
-                          style: GoogleFonts.inter(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),

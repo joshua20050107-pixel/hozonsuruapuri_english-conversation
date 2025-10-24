@@ -70,25 +70,43 @@ class _BottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: TalkinColors.card, // 🩶 カードと統一した白系
+        color: const Color(
+          0xFF3E65E5,
+        ).withOpacity(0.95), // titaniumGradient の最下段に合わせる
         boxShadow: [
           BoxShadow(
-            color: TalkinColors.shadow,
-            blurRadius: 8,
-            offset: const Offset(0, -2),
+            color: Colors.black26,
+            blurRadius: 10, // ← 8 → 10 に変更
+            offset: Offset(0, -2),
           ),
         ],
       ),
-      child: BottomNavigationBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        selectedItemColor: TalkinColors.accent, // 💜 テーマ紫
-        unselectedItemColor: const Color(0xFFB5B5B5), // グレー
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: "Growth"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
-        ],
+
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(18),
+          topRight: Radius.circular(18),
+        ),
+
+        child: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          type: BottomNavigationBarType.fixed, // ✅【変更④】固定型でアイコン揺れ防止
+          selectedItemColor: const Color(0xFFE8E8FF), // ← DAD7FF → E8E8FF
+          unselectedItemColor: const Color(0xFFD4DAFF), // ← BFC8FF → D4DAFF
+          // ✅【変更⑥】テキスト太さ調整（視認性アップ）
+          selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
+          unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
+
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bar_chart),
+              label: "Growth",
+            ),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          ],
+        ),
       ),
     );
   }

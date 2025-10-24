@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
 
 class TalkinColors {
-  // 🌫 背景（少しグレーにして立体感を出す）
+  // 🌌 背景：未来的ネオングラデーション（淡い紫〜白〜青）
   static const LinearGradient titaniumGradient = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFFF6F7FA), Color(0xFFE3E7EE), Color(0xFFD0D6E0)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFF753DD5), // ネオン紫
+      Color(0xFF5861E8), // 青紫
+      Color(0xFF2D55C0), // 深青
+    ],
   );
 
-  // 🩶 カード
-  static const card = Color(0xFFFAFAFA);
+  // ⚪️ テキスト：温かみ＋未来感を共存
+  static const textPrimary = Color(0xFF1A1A1A); // 濃いグレー（黒より柔らかい）
+  static const textSecondary = Color(0xFF7C7B8B); // 淡いパープルグレー
 
-  // ⚫️ テキスト
-  static const textPrimary = Color(0xFF111111);
-  static const textSecondary = Color.fromARGB(255, 157, 156, 156);
+  // 💜 アクセント（Talkinの象徴カラー）
+  static const accent = Color(0xFF6C5FD3); // 既存維持（完璧）
 
-  // 💜 アクセント（変えずに維持）
-  static const accent = Color(0xFF5A4FCF);
+  // ⚡️ サブアクセント（ネオンっぽい黄）
+  static const accentNeon = Color(0xFFFFD84D); // 吹き出しなどに使用予定
 
-  // 🪶 枠線
-  static const border = Color(0xFFE0E0E0);
+  // 🪶 枠線：透明寄りで立体感を出す
+  static const border = Color(0xFFE8E6F2);
 
-  // ☁️ 影
-  static final shadow = Colors.black.withOpacity(0.07);
+  // ☁️ 影：柔らかく浮かせる
+  static final shadow = Colors.black.withOpacity(0.08);
 
-  // 🎨 グラデーション（必要なとき用）
+  // 🎨 サブグラデーション（カードやボタンの背景に）
   static final gradients = [
     LinearGradient(
-      colors: [Color(0xFFFFFFFF), Color(0xFFFAFAFA)],
+      colors: [
+        Color(0xFF6E7FF3), // 青紫
+        Color(0xFF9BA8FF), // 淡いブルー
+      ],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     ),
