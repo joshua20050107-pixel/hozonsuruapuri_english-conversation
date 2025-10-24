@@ -4,7 +4,7 @@ import '../theme/talkin_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 LinearGradient getGradientForIndex(int index) {
-  final row = index ~/ 2;
+  final row = index ~/ 2; // ← 2列グリッドの場合
   final gradientIndex = (row + index) % TalkinColors.gradients.length;
   return TalkinColors.gradients[gradientIndex];
 }
@@ -33,7 +33,7 @@ class TalkCardGrid extends StatelessWidget {
       creatorName: 'リョウ',
       creatorLevel: 'Intermediate',
       level: 'Beginner',
-      message: "これからはいいことがあるように願いますよと願うまで ",
+      message: "　",
       type: 'casual',
       createdAt: DateTime(2025, 1, 1),
       creatorImageUrl: '',
@@ -145,7 +145,7 @@ class TalkCardGrid extends StatelessWidget {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 13),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -187,23 +187,59 @@ class TalkCardGrid extends StatelessWidget {
                   const Spacer(),
 
                   // ─────────── Joinボタン ───────────
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 22,
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(14),
-                    ),
-                    child: Text(
-                      "Join",
-                      style: GoogleFonts.inter(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // 🟢 Levelタグ（左側）
+                      // 🟣 コンパクトな Level タグ
+                      Container(
+                        width: 70, // ← 固定幅（お好みで微調整）
+                        height: 28, // ← 縦も軽く固定すると見た目安定
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 6,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        alignment: Alignment.center,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown, // ← テキストを収める
+                          child: Text(
+                            'Level: ${displayLevel(talk.level)}',
+                            style: GoogleFonts.inter(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFF3C3C3C),
+                              height: 1.1,
+                              letterSpacing: 0.2,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+
+                      // 🤍 Joinボタン（右側）
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 14,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: Text(
+                          "Join",
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
