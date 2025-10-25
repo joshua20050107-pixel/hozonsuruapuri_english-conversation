@@ -108,25 +108,65 @@ class TalkCardGrid extends StatelessWidget {
       createdAt: DateTime(2025, 1, 1),
       creatorImageUrl: '',
     ),
+    Talk(
+      id: '9',
+      creatorName: '進次郎54生4',
+      creatorLevel: 'Beginner',
+      level: 'Beginner',
+      message: "ランダムトーク ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: '',
+    ),
+    Talk(
+      id: '10',
+      creatorName: '進次郎54生4',
+      creatorLevel: 'Beginner',
+      level: 'Beginner',
+      message: "ランダムトーク ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: '',
+    ),
+    Talk(
+      id: '11',
+      creatorName: '進次郎54生4',
+      creatorLevel: 'Beginner',
+      level: 'Beginner',
+      message: "ランダムトーク ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: '',
+    ),
+    Talk(
+      id: '12',
+      creatorName: '進次郎54生4',
+      creatorLevel: 'Beginner',
+      level: 'Beginner',
+      message: "ランダムトーク ",
+      type: 'short',
+      createdAt: DateTime(2025, 1, 1),
+      creatorImageUrl: '',
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 11),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 11),
       itemCount: talks.length,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 14,
-        mainAxisSpacing: 18,
-        childAspectRatio: 0.77,
+        mainAxisSpacing: 14,
+        childAspectRatio: 0.79,
       ),
       itemBuilder: (context, index) {
         final talk = talks[index];
         debugPrint('Avatar exists: ${talk.creatorImageUrl}');
 
         return InkWell(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(18),
           onTap: () {
             debugPrint("Tapped card: ${talk.creatorName}");
           },
@@ -135,7 +175,7 @@ class TalkCardGrid extends StatelessWidget {
             curve: Curves.easeOut,
             decoration: BoxDecoration(
               gradient: getGradientForIndex(index), // ← 背景グラデーションを追加
-              borderRadius: BorderRadius.circular(14),
+              borderRadius: BorderRadius.circular(18),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.08),
@@ -165,7 +205,7 @@ class TalkCardGrid extends StatelessWidget {
                     style: GoogleFonts.inter(
                       fontWeight: FontWeight.w700,
                       fontSize: 16,
-                      color: Colors.white,
+                      color: const Color.fromARGB(255, 255, 255, 255),
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -178,7 +218,12 @@ class TalkCardGrid extends StatelessWidget {
                               : "Daily chat ☕"),
                     style: GoogleFonts.inter(
                       fontSize: 13,
-                      color: Colors.white.withOpacity(0.9),
+                      color: const Color.fromARGB(
+                        255,
+                        255,
+                        255,
+                        255,
+                      ).withOpacity(0.9),
                     ),
                     maxLines: 2,
                     textAlign: TextAlign.center,
@@ -223,8 +268,8 @@ class TalkCardGrid extends StatelessWidget {
                       // 🤍 Joinボタン（右側）
                       Container(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 18,
-                          vertical: 14,
+                          horizontal: 15,
+                          vertical: 11,
                         ),
                         decoration: BoxDecoration(
                           color: Colors.white,

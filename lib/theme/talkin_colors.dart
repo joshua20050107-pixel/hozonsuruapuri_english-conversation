@@ -36,14 +36,33 @@ class TalkinColors {
 // 🎨 --- 他テーマセット（試験用） ---
 class TalkinPalettes {
   // 🌈 Dream Pop
+  // 🌈 Dream Pop (Optimized)
   static const dreamPop = [
-    LinearGradient(colors: [Color(0xFFB9AFFF), Color(0xFFB9AFFF)]),
-    LinearGradient(colors: [Color(0xFF88C8E8), Color(0xFF88C8E8)]),
-    LinearGradient(colors: [Color(0xFFF9E28C), Color(0xFFF9E28C)]),
-    LinearGradient(colors: [Color(0xFFFF9CA0), Color(0xFFFF9CA0)]),
-    LinearGradient(colors: [Color(0xFFB8E4C9), Color(0xFFB8E4C9)]),
-    LinearGradient(colors: [Color(0xFFC8C8D4), Color(0xFFC8C8D4)]),
-    LinearGradient(colors: [Color(0xFF6B4FFF), Color(0xFF6B4FFF)]),
+    // 💜 パープル系：背景と馴染みつつ少し光る
+    LinearGradient(colors: [Color(0xFFBBA9FF), Color(0xFFA590FF)]),
+
+    // 🩵 スカイブルー系：安心感と清潔感
+    LinearGradient(colors: [Color(0xFF97D2FF), Color(0xFF7FCBFF)]),
+
+    // 💛 イエロー：差し色、注目カードに最適
+    LinearGradient(
+      colors: [
+        Color.fromARGB(255, 252, 217, 80),
+        Color.fromARGB(255, 251, 204, 36),
+      ],
+    ),
+
+    // ❤️ コーラルピンク：優しさと活気を両立
+    LinearGradient(colors: [Color(0xFFFFA6B0), Color(0xFFFF8F9E)]),
+
+    // 💚 ミントグリーン：落ち着き＋新鮮さ
+    LinearGradient(colors: [Color(0xFFB8F3D1), Color(0xFF9FEEC1)]),
+
+    // ⚪️ グレー：中間調、空白エリアを自然に繋ぐ
+    LinearGradient(colors: [Color(0xFFE3E3EB), Color(0xFFD1D1DA)]),
+
+    // 🔵 ディープブルー：アクセント（上級者・特別カード向け）
+    LinearGradient(colors: [Color(0xFF5A6CFF), Color(0xFF4355FF)]),
   ];
 
   // 💜 Cyber Pastel

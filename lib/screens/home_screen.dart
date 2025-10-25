@@ -92,12 +92,12 @@ class _BottomNav extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           type: BottomNavigationBarType.fixed, // ✅【変更④】固定型でアイコン揺れ防止
-          selectedItemColor: const Color(0xFFE8E8FF), // ← DAD7FF → E8E8FF
+          selectedItemColor: const Color.fromARGB(255, 255, 215, 53),
+          // ← DAD7FF → E8E8FF
           unselectedItemColor: const Color(0xFFD4DAFF), // ← BFC8FF → D4DAFF
           // ✅【変更⑥】テキスト太さ調整（視認性アップ）
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
           unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
-
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(
