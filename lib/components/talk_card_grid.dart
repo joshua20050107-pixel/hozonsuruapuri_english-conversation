@@ -4,8 +4,10 @@ import '../theme/talkin_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 LinearGradient getGradientForIndex(int index) {
-  final row = index ~/ 2; // ← 2列グリッドの場合
-  final gradientIndex = (row + index) % TalkinColors.gradients.length;
+  final column = index % 2; // 列番号（2列前提）
+  final row = index ~/ 2;
+  final gradientIndex =
+      (index * 3 + row + column) % TalkinColors.gradients.length;
   return TalkinColors.gradients[gradientIndex];
 }
 

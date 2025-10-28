@@ -35,30 +35,60 @@ class TalkinColors {
 
 class TalkinPalettes {
   static const dreamPop = [
-    // 💜 パープル系：背景と馴染みつつ少し光る
-    LinearGradient(colors: [Color(0xFFBBA9FF), Color(0xFFA590FF)]),
-
-    // 🩵 スカイブルー系：安心感と清潔感
-    LinearGradient(colors: [Color(0xFF97D2FF), Color(0xFF7FCBFF)]),
-
-    // 💛 イエロー：差し色、注目カードに最適
+    // 🟢 1. Duo Green — 主役・安心・行動促進
     LinearGradient(
-      colors: [
-        Color.fromARGB(255, 252, 217, 80),
-        Color.fromARGB(255, 251, 204, 36),
-      ],
+      colors: [Color(0xFF58CC02), Color(0xFF4CAF00)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
     ),
 
-    // ❤️ コーラルピンク：優しさと活気を両立
-    LinearGradient(colors: [Color(0xFFFFA6B0), Color(0xFFFF8F9E)]),
+    // 💛 2. Sunny Yellow — 楽観・フレンドリー・初心者歓迎
+    LinearGradient(
+      colors: [Color(0xFFFFE44D), Color(0xFFFFD93D)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
 
-    // 💚 ミントグリーン：落ち着き＋新鮮さ
-    LinearGradient(colors: [Color(0xFFB8F3D1), Color(0xFF9FEEC1)]),
+    // 🩵 3. Sky Blue — 知的・清潔・誠実
+    LinearGradient(
+      colors: [Color(0xFF8EE7FF), Color(0xFF5FD1FF)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
 
-    // ⚪️ グレー：中間調、空白エリアを自然に繋ぐ
-    LinearGradient(colors: [Color(0xFFE3E3EB), Color(0xFFD1D1DA)]),
+    // 🧡 4. Orange Joy — 活発・モチベーション・前進
+    LinearGradient(
+      colors: [Color(0xFFFFB347), Color(0xFFFF9447)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
 
-    // 🔵 ディープブルー：アクセント（上級者・特別カード向け）
-    LinearGradient(colors: [Color(0xFF5A6CFF), Color(0xFF4355FF)]),
+    // 💗 5. Pink Play — 感情・可愛さ・社交的
+    LinearGradient(
+      colors: [Color(0xFFFFC1CC), Color(0xFFFF9EBB)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+
+    // 💜 6. Lavender Fun — やさしさ・安心・バランス
+    LinearGradient(
+      colors: [Color(0xFFD2B6FF), Color(0xFFBB9BFF)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+
+    // 💙 7. Deep Blue — 信頼・集中・上級感
+    LinearGradient(
+      colors: [Color(0xFF5C9EFF), Color(0xFF407BFF)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
+
+    // ⚪️ 8. Neutral Gray — 休止・空白・自然な中間
+    LinearGradient(
+      colors: [Color(0xFFCBD3E1), Color(0xFFB5BECE)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    ),
   ];
 }
