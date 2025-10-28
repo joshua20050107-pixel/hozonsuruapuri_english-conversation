@@ -33,10 +33,7 @@ class TalkinColors {
   static final gradients = TalkinPalettes.dreamPop;
 }
 
-// 🎨 --- 他テーマセット（試験用） ---
 class TalkinPalettes {
-  // 🌈 Dream Pop
-  // 🌈 Dream Pop (Optimized)
   static const dreamPop = [
     // 💜 パープル系：背景と馴染みつつ少し光る
     LinearGradient(colors: [Color(0xFFBBA9FF), Color(0xFFA590FF)]),
@@ -63,27 +60,5 @@ class TalkinPalettes {
 
     // 🔵 ディープブルー：アクセント（上級者・特別カード向け）
     LinearGradient(colors: [Color(0xFF5A6CFF), Color(0xFF4355FF)]),
-  ];
-
-  // 💜 Cyber Pastel
-  static const cyberPastel = [
-    LinearGradient(colors: [Color(0xFFA48AFF), Color(0xFF8D70F9)]),
-    LinearGradient(colors: [Color(0xFFB1E4FF), Color(0xFF94D9FF)]),
-    LinearGradient(colors: [Color(0xFFFFC7E3), Color(0xFFFFA7D8)]),
-    LinearGradient(colors: [Color(0xFFFFF3B0), Color(0xFFFFE97A)]),
-    LinearGradient(colors: [Color(0xFFDADCE0), Color(0xFFC6C8CC)]),
-    LinearGradient(colors: [Color(0xFFE0B7F4), Color(0xFFD19FF1)]),
-    LinearGradient(colors: [Color(0xFFA6F6D9), Color(0xFF87EFC5)]),
-  ];
-
-  // 🔥 Vivid Calm
-  static const vividCalm = [
-    LinearGradient(colors: [Color(0xFF7B6EF6), Color(0xFF6354E8)]),
-    LinearGradient(colors: [Color(0xFF9ED8FF), Color(0xFF7CC6FA)]),
-    LinearGradient(colors: [Color(0xFFA8E6CF), Color(0xFF8AD8B8)]),
-    LinearGradient(colors: [Color(0xFFFEE191), Color(0xFFFCD668)]),
-    LinearGradient(colors: [Color(0xFFFFB3BA), Color(0xFFFF8FA3)]),
-    LinearGradient(colors: [Color(0xFFE0E0E0), Color(0xFFCACACA)]),
-    LinearGradient(colors: [Color(0xFF4765FF), Color(0xFF274BFF)]),
   ];
 }
