@@ -3,7 +3,6 @@ import '../components/futuristic_header.dart';
 import '../components/talk_tabs.dart';
 import '../components/talk_card_grid.dart';
 import '../theme/talkin_colors.dart';
-import 'create_talk_screen.dart';
 import '../components/create_talk_modal.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -19,52 +18,38 @@ class HomeScreen extends StatelessWidget {
         child: FloatingActionButton(
           backgroundColor: TalkinColors.accent, // 💜 紫を主役に
           onPressed: () {
-            showGeneralDialog(
+            showDialog(
               context: context,
+              barrierDismissible: true,
               barrierColor: Colors.black.withOpacity(0.4),
-              barrierDismissible: true, // ← 外タップ許可
-              barrierLabel: "Dismiss",
-              transitionDuration: const Duration(milliseconds: 200),
-
-              // ★ ココを差し替え（Scaffoldをやめる）
-              pageBuilder: (context, animation1, animation2) {
+              builder: (context) {
                 return Stack(
                   children: [
-                    // 画面全体の透明レイヤ（ここをタップで閉じる）
-                    GestureDetector(
-                      behavior: HitTestBehavior.opaque, // ← 下まで確実に届く
-                      onTap: () => Navigator.of(context).pop(), // ← 閉じる
-                      child: const SizedBox.expand(),
+                    // 🧱 背景（外タップ → 閉じる）
+                    Positioned.fill(
+                      child: GestureDetector(
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => Navigator.of(context).pop(),
+                        child: const SizedBox(),
+                      ),
                     ),
 
-                    // ダイアログ本体（サイズは showDialog と同じ余白に）
-                    const Align(
-                      alignment: Alignment.center,
+                    // 💎 募集カード（範囲内のみ反応）
+                    Center(
                       child: Padding(
-                        padding: EdgeInsets.all(16), // ← 前回と同じ insetPadding
+                        padding: const EdgeInsets.all(16),
                         child: Material(
-                          type: MaterialType.transparency, // 余計な背景を出さない
-                          child: CreateTalkModal(),
+                          type: MaterialType.transparency,
+                          // 👇 CreateTalkModalをGestureDetectorで囲う（内側限定）
+                          child: GestureDetector(
+                            behavior: HitTestBehavior.deferToChild, // 子要素優先！
+                            onTap: () => FocusScope.of(context).unfocus(),
+                            child: const CreateTalkModal(),
+                          ),
                         ),
                       ),
                     ),
                   ],
-                );
-              },
-
-              // ここは今のまま（アニメーション）
-              transitionBuilder: (context, anim1, anim2, child) {
-                return FadeTransition(
-                  opacity: CurvedAnimation(
-                    parent: anim1,
-                    curve: Curves.easeOut,
-                  ),
-                  child: ScaleTransition(
-                    scale: Tween<double>(begin: 0.97, end: 1.0).animate(
-                      CurvedAnimation(parent: anim1, curve: Curves.easeOutBack),
-                    ),
-                    child: child,
-                  ),
                 );
               },
             );
@@ -117,32 +102,26 @@ class _BottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(
-          0xFF3E65E5,
-        ).withOpacity(0.95), // titaniumGradient の最下段に合わせる
-        boxShadow: [
+        color: const Color(0xFF3E65E5).withOpacity(0.95),
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
-            blurRadius: 10, // ← 8 → 10 に変更
+            blurRadius: 10,
             offset: Offset(0, -2),
           ),
         ],
       ),
-
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(18),
           topRight: Radius.circular(18),
         ),
-
         child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          type: BottomNavigationBarType.fixed, // ✅【変更④】固定型でアイコン揺れ防止
+          type: BottomNavigationBarType.fixed,
           selectedItemColor: const Color.fromARGB(255, 255, 215, 53),
-          // ← DAD7FF → E8E8FF
-          unselectedItemColor: const Color(0xFFD4DAFF), // ← BFC8FF → D4DAFF
-          // ✅【変更⑥】テキスト太さ調整（視認性アップ）
+          unselectedItemColor: const Color(0xFFD4DAFF),
           selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600),
           unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w400),
           items: const [
