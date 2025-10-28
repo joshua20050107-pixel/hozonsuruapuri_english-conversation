@@ -18,14 +18,16 @@ class HomeScreen extends StatelessWidget {
         child: FloatingActionButton(
           backgroundColor: TalkinColors.accent, // 💜 紫を主役に
           onPressed: () {
-            showDialog(
+            showGeneralDialog(
               context: context,
-              barrierDismissible: true,
               barrierColor: Colors.black.withOpacity(0.4),
-              builder: (context) {
+              barrierDismissible: true,
+              barrierLabel: "Dismiss",
+              transitionDuration: const Duration(milliseconds: 250),
+              pageBuilder: (context, animation1, animation2) {
                 return Stack(
                   children: [
-                    // 🧱 背景（外タップ → 閉じる）
+                    // 💥 外タップ → 閉じる
                     Positioned.fill(
                       child: GestureDetector(
                         behavior: HitTestBehavior.opaque,
@@ -34,22 +36,38 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
 
-                    // 💎 募集カード（範囲内のみ反応）
-                    Center(
+                    // 💎 募集カード（中はunfocusのみ）
+                    const Align(
+                      alignment: Alignment.center,
                       child: Padding(
-                        padding: const EdgeInsets.all(16),
+                        padding: EdgeInsets.all(16),
                         child: Material(
                           type: MaterialType.transparency,
-                          // 👇 CreateTalkModalをGestureDetectorで囲う（内側限定）
-                          child: GestureDetector(
-                            behavior: HitTestBehavior.deferToChild, // 子要素優先！
-                            onTap: () => FocusScope.of(context).unfocus(),
-                            child: const CreateTalkModal(),
-                          ),
+                          child: CreateTalkModal(),
                         ),
                       ),
                     ),
                   ],
+                );
+              },
+
+              // 🎯 弾けるアニメーション（自然で気持ちいい）
+              transitionBuilder: (context, anim1, anim2, child) {
+                final curved = CurvedAnimation(
+                  parent: anim1,
+                  curve: Curves.easeOutBack, // 💥 開く時ポンッ
+                  reverseCurve: Curves.easeInBack, // 💫 閉じる時もしゅっ
+                );
+
+                return FadeTransition(
+                  opacity: curved,
+                  child: ScaleTransition(
+                    scale: Tween<double>(
+                      begin: 0.8, // 小さめから
+                      end: 1.0, // ポンッと膨らむ
+                    ).animate(curved),
+                    child: child,
+                  ),
                 );
               },
             );

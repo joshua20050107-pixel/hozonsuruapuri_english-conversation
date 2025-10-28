@@ -64,6 +64,7 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
               // ← ✨ここに移動
               behavior: HitTestBehavior.deferToChild, // ← 子要素の見える範囲のみ反応
               onTap: () => FocusScope.of(context).unfocus(),
+
               child: Container(
                 color: Colors.white.withOpacity(0.0),
                 child: SingleChildScrollView(
@@ -96,8 +97,13 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
                             // Free Talk
                             Expanded(
                               child: GestureDetector(
-                                onTap: () =>
-                                    setState(() => _selectedType = 'casual'),
+                                onTap: () {
+                                  FocusScope.of(
+                                    context,
+                                  ).unfocus(); // ← 追加：メッセージ入力のキャンセル
+                                  setState(() => _selectedType = 'casual');
+                                },
+
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 180),
                                   padding: const EdgeInsets.symmetric(
@@ -130,8 +136,10 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
                             // Short Talk
                             Expanded(
                               child: GestureDetector(
-                                onTap: () =>
-                                    setState(() => _selectedType = 'short'),
+                                onTap: () {
+                                  FocusScope.of(context).unfocus(); // ← 追加
+                                  setState(() => _selectedType = 'short');
+                                },
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 180),
                                   padding: const EdgeInsets.symmetric(
@@ -191,8 +199,11 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
                             'Anyone',
                           ])
                             GestureDetector(
-                              onTap: () =>
-                                  setState(() => _selectedLevel = level),
+                              onTap: () {
+                                FocusScope.of(context).unfocus(); // ← 追加
+                                setState(() => _selectedLevel = level);
+                              },
+
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 180),
                                 decoration: BoxDecoration(
