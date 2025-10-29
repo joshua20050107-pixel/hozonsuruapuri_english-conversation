@@ -96,35 +96,43 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
                           children: [
                             // Free Talk
                             Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  FocusScope.of(
-                                    context,
-                                  ).unfocus(); // ← 追加：メッセージ入力のキャンセル
-                                  setState(() => _selectedType = 'casual');
-                                },
+                              child: Material(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(10),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(10),
 
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 180),
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: _selectedType == 'casual'
-                                        ? const Color(0xFF9E8FFF)
-                                        : const Color(
-                                            0xFF483D9E,
-                                          ).withOpacity(0.3),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Free Talk',
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(
-                                          _selectedType == 'casual' ? 1 : 0.7,
+                                  splashFactory: InkRipple.splashFactory,
+                                  splashColor: Colors.white.withOpacity(0.15),
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    FocusScope.of(
+                                      context,
+                                    ).unfocus(); // ← メッセージ入力のキャンセル
+                                    setState(() => _selectedType = 'casual');
+                                  },
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 180),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: _selectedType == 'casual'
+                                          ? const Color(0xFF9E8FFF)
+                                          : const Color(
+                                              0xFF483D9E,
+                                            ).withOpacity(0.3),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Free Talk',
+                                        style: TextStyle(
+                                          color: Colors.white.withOpacity(
+                                            _selectedType == 'casual' ? 1 : 0.7,
+                                          ),
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ),
@@ -133,34 +141,42 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
                             ),
                             const SizedBox(width: 8),
 
-                            // Short Talk
+                            // Short Talk（同じ構造で下をコピペし、_selectedTypeを'short'に変更）
                             Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  FocusScope.of(context).unfocus(); // ← 追加
-                                  setState(() => _selectedType = 'short');
-                                },
-                                child: AnimatedContainer(
-                                  duration: const Duration(milliseconds: 180),
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 10,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: _selectedType == 'short'
-                                        ? const Color(0xFF9E8FFF)
-                                        : const Color(
-                                            0xFF483D9E,
-                                          ).withOpacity(0.3),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Short Talk',
-                                      style: TextStyle(
-                                        color: Colors.white.withOpacity(
-                                          _selectedType == 'short' ? 1 : 0.7,
+                              child: Material(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(10),
+                                child: InkWell(
+                                  borderRadius: BorderRadius.circular(10),
+                                  splashFactory: InkRipple.splashFactory,
+                                  splashColor: Colors.white.withOpacity(0.15),
+                                  highlightColor: Colors.transparent,
+                                  onTap: () {
+                                    FocusScope.of(context).unfocus();
+                                    setState(() => _selectedType = 'short');
+                                  },
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 180),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: _selectedType == 'short'
+                                          ? const Color(0xFF9E8FFF)
+                                          : const Color(
+                                              0xFF483D9E,
+                                            ).withOpacity(0.3),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Short Talk',
+                                        style: TextStyle(
+                                          color: Colors.white.withOpacity(
+                                            _selectedType == 'short' ? 1 : 0.7,
+                                          ),
+                                          fontWeight: FontWeight.w600,
                                         ),
-                                        fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ),
@@ -198,31 +214,41 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
                             'Advanced',
                             'Anyone',
                           ])
-                            GestureDetector(
-                              onTap: () {
-                                FocusScope.of(context).unfocus(); // ← 追加
-                                setState(() => _selectedLevel = level);
-                              },
+                            Material(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.circular(10),
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(10),
+                                splashFactory: InkRipple.splashFactory,
+                                splashColor: Colors.white.withOpacity(
+                                  0.2,
+                                ), // 波紋の明るさ
+                                highlightColor: Colors.transparent,
 
-                              child: AnimatedContainer(
-                                duration: const Duration(milliseconds: 180),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: _selectedLevel == level
-                                      ? const Color(0xFF9E8FFF)
-                                      : const Color(
-                                          0xFF483D9E,
-                                        ).withOpacity(0.3),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    level,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.white.withOpacity(
-                                        _selectedLevel == level ? 1 : 0.7,
+                                onTap: () {
+                                  FocusScope.of(context).unfocus();
+                                  setState(() => _selectedLevel = level);
+                                },
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 180),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: _selectedLevel == level
+                                        ? const Color(0xFF9E8FFF)
+                                        : const Color(
+                                            0xFF483D9E,
+                                          ).withOpacity(0.3),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      level,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white.withOpacity(
+                                          _selectedLevel == level ? 1 : 0.7,
+                                        ),
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
@@ -281,21 +307,54 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
                       const SizedBox(height: 20),
 
                       // ─────────── 投稿ボタン ───────────
+                      // ─────────── 投稿ボタン ───────────
                       SizedBox(
                         width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _createTalk,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: TalkinColors.accent,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                        child: Material(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(12),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(12),
+                            // ▼ rippleは消して、押下時だけ白い薄膜で“ふわっと”発光
+                            splashFactory: NoSplash.splashFactory,
+                            overlayColor: MaterialStateProperty.resolveWith((
+                              states,
+                            ) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors.white.withOpacity(
+                                  0.4,
+                                ); // ← 発光の強さ（好みで調整）
+                              }
+                              return null; // 通常時は何も被せない
+                            }),
+                            highlightColor: Colors.transparent,
+                            onTap: _createTalk, // ← 元の関数そのまま
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                color: TalkinColors.accent, // ← 元の背景色そのまま
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 14),
+                                child: Center(
+                                  child: Text(
+                                    '募集を作成',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                            elevation: 2,
-                          ),
-                          child: const Text(
-                            '募集を作成',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
                         ),
                       ),

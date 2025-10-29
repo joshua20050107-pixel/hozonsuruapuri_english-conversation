@@ -248,7 +248,7 @@ class TalkCardGrid extends StatelessWidget {
                           vertical: 5,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withOpacity(0.65),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         alignment: Alignment.center,
