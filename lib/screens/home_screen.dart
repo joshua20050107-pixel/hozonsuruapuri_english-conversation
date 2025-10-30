@@ -4,108 +4,129 @@ import '../components/talk_tabs.dart';
 import '../components/talk_card_grid.dart';
 import '../theme/talkin_colors.dart';
 import '../components/create_talk_modal.dart';
+import '../screens/growth_screen.dart'; // ← これを追加！
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // ⚡ FAB配置（中央固定）
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 105.0),
-        child: FloatingActionButton(
-          backgroundColor: TalkinColors.accent, // 💜 紫を主役に
-          onPressed: () {
-            showGeneralDialog(
-              context: context,
-              barrierColor: Colors.black.withOpacity(0.4),
-              barrierDismissible: true,
-              barrierLabel: "Dismiss",
-              transitionDuration: const Duration(milliseconds: 250),
-              pageBuilder: (context, animation1, animation2) {
-                return Stack(
-                  children: [
-                    // 💥 外タップ → 閉じる
-                    Positioned.fill(
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () => Navigator.of(context).pop(),
-                        child: const SizedBox(),
-                      ),
-                    ),
+      // 🧱 メイン構造（タブ切り替え対応）
+      body: [
+        // 0️⃣ Homeタブ
+        Stack(
+          children: [
+            // 背景
+            Container(
+              decoration: const BoxDecoration(
+                gradient: TalkinColors.titaniumGradient,
+              ),
+            ),
 
-                    // 💎 募集カード（中はunfocusのみ）
-                    const Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: EdgeInsets.all(16),
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: CreateTalkModal(),
-                        ),
-                      ),
-                    ),
-                  ],
-                );
-              },
+            // コンテンツ
+            SafeArea(
+              bottom: false,
+              child: Column(
+                children: [
+                  SizedBox(height: 2),
+                  FuturisticHeader(),
+                  SizedBox(height: 2),
+                  TalkTabs(),
+                  SizedBox(height: 6),
+                  Expanded(child: TalkCardGrid()),
+                ],
+              ),
+            ),
 
-              // 🎯 弾けるアニメーション（自然で気持ちいい）
-              transitionBuilder: (context, anim1, anim2, child) {
-                final curved = CurvedAnimation(
-                  parent: anim1,
-                  curve: Curves.easeOutBack, // 💥 開く時ポンッ
-                  reverseCurve: Curves.easeInBack, // 💫 閉じる時もしゅっ
-                );
-
-                return FadeTransition(
-                  opacity: curved,
-                  child: ScaleTransition(
-                    scale: Tween<double>(
-                      begin: 0.8, // 小さめから
-                      end: 1.0, // ポンッと膨らむ
-                    ).animate(curved),
-                    child: child,
-                  ),
-                );
-              },
-            );
-          },
-
-          child: const Icon(Icons.add, color: Colors.white),
+            // 💜 Home専用の「＋」ボタン（位置を完全再現）
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: FloatingActionButton(
+                  backgroundColor: TalkinColors.accent,
+                  onPressed: () {
+                    showGeneralDialog(
+                      context: context,
+                      barrierColor: Colors.black.withOpacity(0.4),
+                      barrierDismissible: true,
+                      barrierLabel: "Dismiss",
+                      transitionDuration: const Duration(milliseconds: 250),
+                      pageBuilder: (context, animation1, animation2) {
+                        return Stack(
+                          children: [
+                            Positioned.fill(
+                              child: GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTap: () => Navigator.of(context).pop(),
+                                child: const SizedBox(),
+                              ),
+                            ),
+                            const Align(
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding: EdgeInsets.all(16),
+                                child: Material(
+                                  type: MaterialType.transparency,
+                                  child: CreateTalkModal(),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                      transitionBuilder: (context, anim1, anim2, child) {
+                        final curved = CurvedAnimation(
+                          parent: anim1,
+                          curve: Curves.easeOutBack,
+                          reverseCurve: Curves.easeInBack,
+                        );
+                        return FadeTransition(
+                          opacity: curved,
+                          child: ScaleTransition(
+                            scale: Tween<double>(
+                              begin: 0.8,
+                              end: 1.0,
+                            ).animate(curved),
+                            child: child,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: const Icon(Icons.add, color: Colors.white),
+                ),
+              ),
+            ),
+          ],
         ),
-      ),
 
-      // 🧱 メイン構造
-      body: Stack(
-        children: [
-          // 🎨 背景をTalkinColorsから取得（グラデーションなし）
-          Container(
-            decoration: const BoxDecoration(
-              gradient: TalkinColors.titaniumGradient,
-            ),
-          ),
+        // 1️⃣ Growthタブ
+        const GrowthScreen(),
 
-          // 🧩 コンテンツ本体
-          SafeArea(
-            bottom: false,
-            child: Column(
-              children: [
-                const SizedBox(height: 2),
-                const FuturisticHeader(),
-                const SizedBox(height: 2),
-                const TalkTabs(),
-                const SizedBox(height: 6),
-                Expanded(child: TalkCardGrid()),
-              ],
-            ),
-          ),
-        ],
-      ),
+        // 2️⃣ Profileタブ
+        const Center(child: Text("Profile Page")),
+      ][_selectedIndex],
 
       // 🌙 下ナビバー
-      bottomNavigationBar: const _BottomNav(),
+      bottomNavigationBar: _BottomNav(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
@@ -114,7 +135,10 @@ class HomeScreen extends StatelessWidget {
 /// ボトムナビ（色・影・統一感を調整）
 /// ─────────────────────────────
 class _BottomNav extends StatelessWidget {
-  const _BottomNav();
+  final int currentIndex;
+  final Function(int) onTap;
+
+  const _BottomNav({required this.currentIndex, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +159,8 @@ class _BottomNav extends StatelessWidget {
           topRight: Radius.circular(18),
         ),
         child: BottomNavigationBar(
+          currentIndex: currentIndex,
+          onTap: onTap,
           backgroundColor: Colors.transparent,
           elevation: 0,
           type: BottomNavigationBarType.fixed,

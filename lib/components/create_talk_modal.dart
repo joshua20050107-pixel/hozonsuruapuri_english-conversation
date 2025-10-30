@@ -328,7 +328,13 @@ class _CreateTalkModalState extends ConsumerState<CreateTalkModal> {
                               return null; // 通常時は何も被せない
                             }),
                             highlightColor: Colors.transparent,
-                            onTap: _createTalk, // ← 元の関数そのまま
+                            onTap: () async {
+                              // 押下の瞬間に軽く発光を描画させる時間を確保
+                              await Future.delayed(
+                                const Duration(milliseconds: 150),
+                              );
+                              _createTalk(); // ← Navigator.pop() はこの中で呼ばれる
+                            },
                             child: Ink(
                               decoration: BoxDecoration(
                                 color: TalkinColors.accent, // ← 元の背景色そのまま
